@@ -1,16 +1,22 @@
 interface userOn {
   id: number;
-  firstname: string;
-  ip: string;
+  name: string;
+  email: string;
   token: string;
-  lastAction: string;
+  ip: string;
+  currentTime: string;
 }
+interface ApiRest {
+  success: string;
+  datas: [userOn];
+}
+
 async function getAPI(api: string) {
   try {
     const response = await fetch(api);
-    const datas = <[userOn]>await response.json();
+    const ApiRestDatas = <ApiRest>await response.json();
 
-    show(datas);
+    show(ApiRestDatas);
   } catch (error) {
     console.error(error);
   }
@@ -19,8 +25,40 @@ getAPI(
   "http://localhost/projetos/linguagens/PHP_visitor-accountant/api/usersOnlineApi.php"
 );
 
-function show(datas: [userOn]) {
-  datas.map(data => {
-      console.log(data.firstname)
-  })
+function show(ApiRestDatas: ApiRest) {
+  ApiRestDatas.datas.map((user) => {
+    const lastAction = user.currentTime.replace(/[-]/g, "/");
+    const last_action = lastAction.split(" ");
+    const date = last_action[0];
+    const time = last_action[1];
+
+    $(".users-on")
+      .child({
+        Element: "div",
+        Class: "users-on__user",
+      })
+      .child({
+        Element: "div",
+        Class: "users-on__name",
+        Parent: "div.users-on__user",
+        Content: user.name,
+      })
+      .child({
+        Element: "div",
+        Class: "users-on__datetime",
+        Parent: "div.users-on__user",
+      })
+      .child({
+        Element: "span",
+        Class: "users-on__date",
+        Parent: "div.users-on__datetime",
+        Content: date,
+      })
+      .child({
+        Element: "span",
+        Class: "users-on__time",
+        Parent: "div.users-on__datetime",
+        Content: time,
+      });
+  });
 }

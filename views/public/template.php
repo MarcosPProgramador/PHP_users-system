@@ -33,6 +33,9 @@
         ?> 
     </main>
 
+
+    <script src="./views/public/js/global.js"></script>
+
     <?php if ($this->setConfig('script')):?>
         <script src="<?php echo $this->setConfig('script')?>"></script>
     <?php endif ?>

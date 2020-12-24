@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function getAPI(api) {
     return __awaiter(this, void 0, void 0, function () {
-        var response, datas, error_1;
+        var response, ApiRestDatas, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -47,8 +47,8 @@ function getAPI(api) {
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
-                    datas = _a.sent();
-                    show(datas);
+                    ApiRestDatas = _a.sent();
+                    show(ApiRestDatas);
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
@@ -60,8 +60,39 @@ function getAPI(api) {
     });
 }
 getAPI("http://localhost/projetos/linguagens/PHP_visitor-accountant/api/usersOnlineApi.php");
-function show(datas) {
-    datas.map(function (data) {
-        console.log(data.firstname);
+function show(ApiRestDatas) {
+    ApiRestDatas.datas.map(function (user) {
+        var lastAction = user.currentTime.replace(/[-]/g, "/");
+        var last_action = lastAction.split(" ");
+        var date = last_action[0];
+        var time = last_action[1];
+        $(".users-on")
+            .child({
+            Element: "div",
+            Class: "users-on__user",
+        })
+            .child({
+            Element: "div",
+            Class: "users-on__name",
+            Parent: "div.users-on__user",
+            Content: user.name,
+        })
+            .child({
+            Element: "div",
+            Class: "users-on__datetime",
+            Parent: "div.users-on__user",
+        })
+            .child({
+            Element: "span",
+            Class: "users-on__date",
+            Parent: "div.users-on__datetime",
+            Content: date,
+        })
+            .child({
+            Element: "span",
+            Class: "users-on__time",
+            Parent: "div.users-on__datetime",
+            Content: time,
+        });
     });
 }
