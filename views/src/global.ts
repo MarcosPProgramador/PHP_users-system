@@ -4,7 +4,7 @@ const $ = (elm: string) => {
   interface childElement {
     Element: string;
     Class: string;
-    Index: number;
+    Index?: number;
     Content?: string;
     Parent?: string;
   }
@@ -14,11 +14,16 @@ const $ = (elm: string) => {
   const child = (configElement: childElement) => {
     const children = document.createElement(configElement.Element);
     children.className = configElement.Class;
-    children.textContent = configElement.Content ? configElement.Content : "";
 
+    if (configElement.Content) children.textContent = configElement.Content;
+    
     if (!configElement.Parent) e.appendChild(children);
     else
-      querys(configElement.Parent, configElement.Index).appendChild(children);
+      configElement.Index != undefined
+        ? querys(configElement.Parent, configElement.Index).appendChild(
+            children
+          )
+        : false;
 
     return { child };
   };
