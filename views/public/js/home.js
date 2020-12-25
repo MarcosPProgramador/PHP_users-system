@@ -35,6 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 function getAPI(api) {
     return __awaiter(this, void 0, void 0, function () {
         var response, ApiRestDatas, error_1;
@@ -64,9 +71,12 @@ function show(ApiRestDatas) {
     ApiRestDatas.datas.map(function (user, i) {
         var lastAction = user.currentTime.replace(/[-]/g, "/");
         var last_action = lastAction.split(" ");
-        var date = last_action[0];
-        var time = last_action[1];
-        $(".users-on")
+        var dateApi = last_action[0];
+        var timeApi = last_action[1];
+        var dateApiArr = dateApi.split("/");
+        var timeApiArr = timeApi.split(":");
+        var dateTimeDB = __spreadArrays(dateApiArr, timeApiArr);
+        _(".users-on")
             .child({
             Index: i,
             Element: "div",
@@ -90,14 +100,76 @@ function show(ApiRestDatas) {
             Element: "span",
             Class: "users-on__date",
             Parent: "div.users-on__datetime",
-            Content: date,
+            Content: dateApi,
         })
             .child({
             Index: i,
             Element: "span",
             Class: "users-on__time",
             Parent: "div.users-on__datetime",
-            Content: time,
+            Content: timeApi,
         });
+        var count = 0;
+        var timeout = 1000;
+        periodical();
+        function periodical() {
+            count++;
+            var date = new Date();
+            var dateTime = [
+                date.getFullYear(),
+                date.getMonth() + 1,
+                date.getDate(),
+                date.getHours(),
+                date.getMinutes(),
+                date.getSeconds(),
+            ];
+            var _DateTime = function () {
+                var arr = [];
+                for (var key in dateTime) {
+                    if (dateTime[key] <= 9)
+                        arr.push("0" + dateTime[key]);
+                    else
+                        arr.push("" + dateTime[key]);
+                }
+                return arr;
+            };
+            var _concat = function () {
+                var dateTimeSigular = [
+                    "ano",
+                    "mês",
+                    "dia",
+                    "hora",
+                    "minuto",
+                    "segundo",
+                ];
+                var dateTimePlural = [
+                    "anos",
+                    "meses",
+                    "dias",
+                    "horas",
+                    "minutos",
+                    "segundos",
+                ];
+                var arr = [];
+                var dateTimeCurrent = _DateTime();
+                for (var key in dateTimeSigular) {
+                    console.log(Number(dateTimeCurrent[key]) - Number(dateTimeDB[key]));
+                    if (dateTime[key] === 1) {
+                        arr.push(dateTimeCurrent[key] + " " + dateTimeSigular[key]);
+                    }
+                    else
+                        arr.push(dateTimeCurrent[key] + " " + dateTimePlural[key]);
+                }
+                return arr;
+            };
+            _concat();
+            // console.log(_concat());
+            if (count === 60)
+                timeout = 60000;
+            // if (count === 120) timeout = 600000;
+            // if (count === 180) timeout = 6000000;
+            // if (count === 210) timeout = 60000000;
+            setTimeout(periodical, timeout);
+        }
     });
 }
