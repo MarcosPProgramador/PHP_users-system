@@ -61,34 +61,39 @@ function getAPI(api) {
 }
 getAPI("http://localhost/projetos/linguagens/PHP_visitor-accountant/api/usersOnlineApi.php");
 function show(ApiRestDatas) {
-    ApiRestDatas.datas.map(function (user) {
+    ApiRestDatas.datas.map(function (user, i) {
         var lastAction = user.currentTime.replace(/[-]/g, "/");
         var last_action = lastAction.split(" ");
         var date = last_action[0];
         var time = last_action[1];
         $(".users-on")
             .child({
+            Index: i,
             Element: "div",
             Class: "users-on__user",
         })
             .child({
+            Index: i,
             Element: "div",
             Class: "users-on__name",
             Parent: "div.users-on__user",
             Content: user.name,
         })
             .child({
+            Index: i,
             Element: "div",
             Class: "users-on__datetime",
             Parent: "div.users-on__user",
         })
             .child({
+            Index: i,
             Element: "span",
             Class: "users-on__date",
             Parent: "div.users-on__datetime",
             Content: date,
         })
             .child({
+            Index: i,
             Element: "span",
             Class: "users-on__time",
             Parent: "div.users-on__datetime",

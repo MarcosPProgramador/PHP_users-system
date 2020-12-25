@@ -1,16 +1,17 @@
 "use strict";
 var $ = function (elm) {
     var e = document.querySelector(elm);
-    var es = document.querySelectorAll(elm);
-    var query = function (elm) { return document.querySelector(elm); };
-    var child = function (childObj) {
-        var children = document.createElement(childObj.Element);
-        children.className = childObj.Class;
-        children.textContent = childObj.Content ? childObj.Content : "";
-        if (!childObj.Parent)
+    var querys = function (elm, index) {
+        return document.querySelectorAll(elm)[index];
+    };
+    var child = function (configElement) {
+        var children = document.createElement(configElement.Element);
+        children.className = configElement.Class;
+        children.textContent = configElement.Content ? configElement.Content : "";
+        if (!configElement.Parent)
             e.appendChild(children);
         else
-            query(childObj.Parent).appendChild(children);
+            querys(configElement.Parent, configElement.Index).appendChild(children);
         return { child: child };
     };
     return { child: child };

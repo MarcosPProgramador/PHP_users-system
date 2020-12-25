@@ -1,22 +1,24 @@
 const $ = (elm: string) => {
   const e = <HTMLElement>document.querySelector(elm);
-  const es = document.querySelectorAll(elm);
 
   interface childElement {
     Element: string;
     Class: string;
+    Index: number;
     Content?: string;
     Parent?: string;
   }
-  const query = (elm: string) => <HTMLElement>document.querySelector(elm);
-  
-  const child = (childObj: childElement) => {
-    const children = document.createElement(childObj.Element);
-    children.className = childObj.Class;
-    children.textContent = childObj.Content ? childObj.Content : "";
+  const querys = (elm: string, index: number) =>
+    <HTMLElement>document.querySelectorAll(elm)[index];
 
-    if (!childObj.Parent) e.appendChild(children);
-    else query(childObj.Parent).appendChild(children);
+  const child = (configElement: childElement) => {
+    const children = document.createElement(configElement.Element);
+    children.className = configElement.Class;
+    children.textContent = configElement.Content ? configElement.Content : "";
+
+    if (!configElement.Parent) e.appendChild(children);
+    else
+      querys(configElement.Parent, configElement.Index).appendChild(children);
 
     return { child };
   };

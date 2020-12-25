@@ -8,12 +8,12 @@
             $connectDatabase = simpleTasks::Class('connectDatabaseModel');
             if (isset($_SESSION['logged'])) {
                 if (isset($_SESSION['online'])) {
-                    $this->deleteUsersOff($connectDatabase, $currentTime);
+                    // $this->deleteUsersOff($connectDatabase, $currentTime);
                     $this->updateUsersOn($connectDatabase, $currentTime);
                 }
                 else {
                     $this->insertUsersOn($connectDatabase, $currentTime);
-                    $this->deleteUsersOff($connectDatabase, $currentTime);
+                    // $this->deleteUsersOff($connectDatabase, $currentTime);
                 }
             }
       
