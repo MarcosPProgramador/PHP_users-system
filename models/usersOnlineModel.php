@@ -6,6 +6,7 @@
         {
             $currentTime = date('Y-m-d H:i:s');
             $connectDatabase = simpleTasks::Class('connectDatabaseModel');
+            
             if (isset($_SESSION['logged'])) {
                 if (isset($_SESSION['online'])) {
                     $this->deleteUsersOff($connectDatabase, $currentTime);
@@ -50,6 +51,7 @@
         public function insertUsersOn($connectDatabase, $currentTime)
         {
             $_SESSION['online'] = true;
+            $_SESSION['token'] = uniqid();
 
             $token = $_SESSION['token'];
             $name = $_SESSION['firstname'];

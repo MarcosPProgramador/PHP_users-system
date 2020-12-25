@@ -1,12 +1,13 @@
 <?php
-    require '../models/connectDatabaseModel.php';
-    header('Content-type: application/JSON; charset=utf8');
+    require './tasksApi.php';
+
+    
     class usersOnlineApi
     {
 
         public function __construct()
         {
-            $connectDB = new connectDatabaseModel();
+            $connectDB = tasksApi::Class('connectDatabaseModel');
             $queryDB = $connectDB->query("SELECT * FROM `users.on` ORDER BY id ASC");
 
             $queryDB->execute();
@@ -18,5 +19,5 @@
             else throw new Exception('Not found');
         }
     }
-    $usersApi = new usersOnlineApi();
+    tasksApi::Class('usersOnlineApi');
 

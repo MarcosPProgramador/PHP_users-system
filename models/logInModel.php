@@ -10,7 +10,7 @@
             $_SESSION['email'] = 'marcosproenca144@gmail.com';
             $_SESSION['logged'] = true;
             $_SESSION['firstname'] = 'Marcos';
-            $_SESSION['token'] = uniqid();
+            
         }
     }
     
