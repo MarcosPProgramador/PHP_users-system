@@ -15,8 +15,8 @@
 
 
             if ($queryDB->rowCount()) 
-                echo json_encode(array('status'=> 'success', 'datas' => $datas));
-            else throw new Exception('Not found');
+                echo json_encode(array('status'=> 'success','body' => 'users-on', 'datas' => $datas));
+            else  echo json_encode(array('status'=> 'error','body' => 'users-on', 'datas' => 'not content 204'));
         }
     }
     tasksApi::Class('usersOnlineApi');

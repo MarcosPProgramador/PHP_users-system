@@ -1,4 +1,4 @@
-interface userOn {
+interface userOnOff {
   id: number;
   name: string;
   email: string;
@@ -7,125 +7,166 @@ interface userOn {
   currentTime: string;
 }
 interface ApiRest {
-  success: string;
-  datas: [userOn];
+  status: string;
+  body: string;
+  datas: [userOnOff];
 }
 
-async function getAPI(api: string) {
+async function getUsers(api: string) {
   try {
     const response = await fetch(api);
     const ApiRestDatas = <ApiRest>await response.json();
 
+    if (ApiRestDatas.status == "error") throw ApiRestDatas.datas;
+
     show(ApiRestDatas);
   } catch (error) {
-    console.error(error);
+    console.error(`[Error]: ${error}`);
   }
 }
-getAPI(
+
+getUsers(
   "http://localhost/projetos/linguagens/PHP_visitor-accountant/api/usersOnlineApi.php"
 );
-
-function show(ApiRestDatas: ApiRest) {
-  ApiRestDatas.datas.map((user, i) => {
-    const lastAction = user.currentTime.replace(/[-]/g, "/");
-    const last_action = lastAction.split(" ");
-    const dateApi = last_action[0];
-    const timeApi = last_action[1];
-    const dateApiArr = dateApi.split("/");
-    const timeApiArr = timeApi.split(":");
-    const dateTimeDB = [...dateApiArr, ...timeApiArr];
-
-    _(".users-on")
+getUsers(
+  "http://localhost/projetos/linguagens/PHP_visitor-accountant/api/usersOfflineApi.php"
+);
+function successOn(datas: [userOnOff]) {
+  datas.map((user, i) => {
+    _(".users")
       .child({
         Index: i,
         Element: "div",
-        Class: "users-on__user",
+        Class: "users-on",
       })
       .child({
-        Index: i,
+        Element: "div",
+        Class: "users-on__user",
+        Parent: "div.users-on",
+      })
+      .child({
+        Element: "div",
+        Class: "users-on__email-name",
+        Parent: "div.users-on__user",
+      })
+      .child({
         Element: "div",
         Class: "users-on__name",
-        Parent: "div.users-on__user",
+        Parent: "div.users-on__email-name",
         Content: user.name,
       })
       .child({
-        Index: i,
         Element: "div",
-        Class: "users-on__datetime",
-        Parent: "div.users-on__user",
-      })
-      .child({
-        Index: i,
-        Element: "span",
-        Class: "users-on__date",
-        Parent: "div.users-on__datetime",
-        Content: dateApi,
-      })
-      .child({
-        Index: i,
-        Element: "span",
-        Class: "users-on__time",
-        Parent: "div.users-on__datetime",
-        Content: timeApi,
+        Class: "users-on__email",
+        Parent: "div.users-on__email-name",
+        Content: user.email,
       });
-    let count = 0;
-    let timeout = 1000;
-    periodical();
-    function periodical() {
-      count++;
-      const date = new Date();
-      const dateTime = [
-        date.getFullYear(),
-        date.getMonth() + 1,
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        date.getSeconds(),
-      ];
-      const _DateTime = () => {
-        const arr = [];
-        for (const key in dateTime) {
-          if (dateTime[key] <= 9) arr.push(`0${dateTime[key]}`);
-          else arr.push(`${dateTime[key]}`);
-        }
-        return arr;
-      };
-      const _concat = () => {
-        const dateTimeSigular = [
-          "ano",
-          "mês",
-          "dia",
-          "hora",
-          "minuto",
-          "segundo",
-        ];
-        const dateTimePlural = [
-          "anos",
-          "meses",
-          "dias",
-          "horas",
-          "minutos",
-          "segundos",
-        ];
-        const arr = [];
-        const dateTimeCurrent = _DateTime();
-        for (const key in dateTimeSigular) {
-          console.log(Number(dateTimeCurrent[key]) - Number(dateTimeDB[key]));
-
-          if (dateTime[key] === 1) {
-            arr.push(`${dateTimeCurrent[key]} ${dateTimeSigular[key]}`);
-          } else arr.push(`${dateTimeCurrent[key]} ${dateTimePlural[key]}`);
-        }
-        return arr;
-      };
-      _concat();
-      // console.log(_concat());
-
-      if (count === 60) timeout = 60000;
-      // if (count === 120) timeout = 600000;
-      // if (count === 180) timeout = 6000000;
-      // if (count === 210) timeout = 60000000;
-      setTimeout(periodical, timeout);
-    }
   });
 }
+function successOff(datas: [userOnOff]) {
+  datas.map((user, i) => {
+    _(".users")
+      .child({
+        Index: i,
+        Element: "div",
+        Class: "users-off",
+      })
+      .child({
+        Element: "div",
+        Class: "users-off__user",
+        Parent: "div.users-off",
+      })
+      .child({
+        Element: "div",
+        Class: "users-off__email-name",
+        Parent: "div.users-off__user",
+      })
+      .child({
+        Element: "div",
+        Class: "users-off__name",
+        Parent: "div.users-off__email-name",
+        Content: user.name,
+      })
+      .child({
+        Element: "div",
+        Class: "users-off__email",
+        Parent: "div.users-off__email-name",
+        Content: user.email,
+      });
+  });
+}
+
+function show(ApiRestDatas: ApiRest) {
+  switch (ApiRestDatas.body) {
+    case "users-on":
+      successOn(ApiRestDatas.datas);
+      break;
+    case "users-off":
+      successOff(ApiRestDatas.datas);
+      break;
+  }
+}
+// let count = 0;
+//     let timeout = 1000;
+//     function periodical() {
+//       count++;
+//       const dateTimeDB = nDataTime(user.currentTime);
+//       const date = new Date();
+//       const dateTime = [
+//         date.getFullYear(),
+//         date.getMonth() + 1,
+//         date.getDate(),
+//         date.getHours(),
+//         date.getMinutes(),
+//         date.getSeconds(),
+//       ];
+//       function _DateTime() {
+//         const arr = [];
+//         for (const key in dateTime) {
+//           if (dateTime[key] <= 9) arr.push(`0${dateTime[key]}`);
+//           else arr.push(`${dateTime[key]}`);
+//         }
+//         return arr;
+//       }
+//       function nDataTime(currentTime: string) {
+//         const lastAction = currentTime.replace(/[-]/g, "/");
+//         const last_action = lastAction.split(" ");
+//         const dateApiArr = last_action[0].split("/");
+//         const timeApiArr = last_action[1].split(":");
+
+//         return [...dateApiArr, ...timeApiArr];
+//       }
+//       function _concat() {
+//         const dateTimeSigular = [
+//           "ano",
+//           "mês",
+//           "dia",
+//           "hora",
+//           "minuto",
+//           "segundo",
+//         ];
+//         const dateTimePlural = [
+//           "anos",
+//           "meses",
+//           "dias",
+//           "horas",
+//           "minutos",
+//           "segundos",
+//         ];
+//         const arr = [];
+//         const dateTimeCurrent = _DateTime();
+//         for (const key in dateTimeSigular) {
+//           console.log(Number(dateTimeCurrent[key]) - Number(dateTimeDB[key]));
+
+//           if (dateTime[key] === 1) {
+//             arr.push(`${dateTimeCurrent[key]} ${dateTimeSigular[key]}`);
+//           } else arr.push(`${dateTimeCurrent[key]} ${dateTimePlural[key]}`);
+//         }
+//         return arr;
+//       }
+//       if (count == 60) timeout = 60000;
+
+//       console.log(timeout);
+//       setTimeout(periodical, timeout);
+//     }
+//     periodical()

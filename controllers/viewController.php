@@ -63,6 +63,7 @@
                         'header' => 'header.php',
                         'footer' => 'footer.php',
                         'icon' => 'welcome.png',
+                        'style' => 'home.min.css',
                         'script' => 'home.js',
                     ];
                     if (isset($_SESSION['logged'])) 

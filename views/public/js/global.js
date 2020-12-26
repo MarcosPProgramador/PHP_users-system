@@ -16,16 +16,16 @@ var _ = function (elm) {
         //   (<HTMLElement>elm).innerText = txt;
         // });
     };
+    var _index = 0;
     var child = function (configElement) {
         var children = document.createElement(configElement.Element);
+        _index = configElement.Index != undefined ? configElement.Index : _index;
         children.className = configElement.Class;
         children.textContent = configElement.Content;
         if (!configElement.Parent)
             e.appendChild(children);
         else
-            configElement.Index != undefined
-                ? querys(configElement.Parent, configElement.Index).appendChild(children)
-                : false;
+            querys(configElement.Parent, _index).appendChild(children);
         return { child: child };
     };
     return { child: child, html: html, text: text };

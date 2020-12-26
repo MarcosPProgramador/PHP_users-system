@@ -43,6 +43,8 @@
 
                 $queryUpdate = $connectDatabase->query($query);
                 $queryUpdate->execute([$currentTime, $token]);
+                      
+           
                 
             }else  unset($_SESSION['online']);
                 
@@ -72,9 +74,8 @@
        
        
 
-
             $queryInsert = $connectDatabase->query($query);
-            
+
             $queryInsert->execute([
                 $name,
                 $email,
@@ -82,43 +83,75 @@
                 $ip,
                 $currentTime
             ]);
-
+            
+            if ($queryInsert->rowCount()) {
+                $this->deleteRepeatedUser($connectDatabase, $currentTime);
+            }
+        
            
 
         }
+        public function insertUserOff($connectDatabase, $currentTime)
+        {
+            $_SESSION['token'] = uniqid();
+
+            $token = $_SESSION['token'];
+            $name = $_SESSION['firstname'];
+            $email = $_SESSION['email'];
+            $ip = $_SERVER['REMOTE_ADDR'];
+
+            $query = "  INSERT INTO `users.off` 
+
+                        (name,
+                        email,
+                        token,
+                        ip,
+                        currentTime) 
+
+                        VALUES (?,?,?,?,?)
+            ";
+
+
+
+
+
+            $queryInsert = $connectDatabase->query($query);
+
+            $queryInsert->execute([
+                $name,
+                $email,
+                $token,
+                $ip,
+                $currentTime
+            ]);
+        }
+        public function deleteRepeatedUser($connectDatabase)
+        {
+
+            $check = $connectDatabase->query("SELECT * FROM `users.off` A INNER JOIN `users.on` B  ON `A`.`email` = `B`.`email`");
+            $check->execute();
+            if ($check->rowCount()) {
+                $check = $connectDatabase->query("DELETE FROM `users.off` WHERE email = ?");
+                $check->execute([$_SESSION['email']]);
+            }
+        }
         public function deleteUsersOff($connectDatabase, $currentTime)
         {   
-            $email = $_SESSION['email'];
             $deleteUserOff = '  DELETE FROM `users.on`
                                 WHERE  currentTime < ? 
                                 -
-                                INTERVAL 1 MINUTE
+                                INTERVAL 1 SECOND
             ';
 
-            $deleteRepeatedUser = ' DELETE FROM `users.on` 
-                                    WHERE email = ? 
-                                    LIMIT 1
-            ';
 
-            $selectCheckEmail = '   SELECT email 
-                                    FROM `users.on`
-                                    WHERE email = ?
-             ';
-
-
+            
             $queryDB = $connectDatabase->query($deleteUserOff);
             $queryDB->execute([$currentTime]);
-
-
-            $queryCheck = $connectDatabase->query($selectCheckEmail);
-            $queryCheck->execute([$email]);
-
-            if ($queryCheck->rowCount() >= 2){
-      
-                $queryDelete = $connectDatabase->query($deleteRepeatedUser);
-                $queryDelete->execute([$email]);
+            if($queryDB->rowCount()) {
+                $this->insertUserOff($connectDatabase, $currentTime);
             }
-          
+            
+
 
         }
     }

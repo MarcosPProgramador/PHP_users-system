@@ -18,24 +18,23 @@ const _ = (elm: string) => {
   };
   const text = (txt: string, i?: number) => {
     e.innerText = txt;
-    
+
     // es.forEach((elm) => {
     //   (<HTMLElement>elm).innerText = txt;
     // });
   };
+
+  let _index: number = 0;
   const child = (configElement: childElement) => {
     const children = document.createElement(configElement.Element);
+
+    _index = configElement.Index != undefined ? configElement.Index : _index;
 
     children.className = configElement.Class;
     children.textContent = <string>configElement.Content;
 
     if (!configElement.Parent) e.appendChild(children);
-    else
-      configElement.Index != undefined
-        ? querys(configElement.Parent, configElement.Index).appendChild(
-            children
-          )
-        : false;
+    else querys(configElement.Parent, _index).appendChild(children);
 
     return { child };
   };
