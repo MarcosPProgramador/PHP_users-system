@@ -1,5 +1,5 @@
 <?php 
-    class viewController
+    class viewRoutes
     {   
         public function __construct() {
             include './views/public/template.php';
@@ -24,14 +24,26 @@
                 case 'title':
                     return $title;
                 case 'style':
-                    $filePath = "./views/public/styles/$style";
-                    if(file_exists($filePath))
-                        return $filePath;
+                    $arr = [];
+                    foreach ($style as $value) {
+                        $filePath = "./views/public/styles/$value";
+                        if(file_exists($filePath))
+                            array_push($arr, $filePath);
+                    }
+                    if(count($arr))
+                        return $arr;
                         return false;
+
+                    
                 case 'script':
-                    $filePath = "./views/public/js/$script";
-                    if(file_exists($filePath))
-                        return $filePath;
+                    $arr = [];
+                    foreach ($script as $value) {
+                        $filePath = "./views/public/js/$value";
+                        if(file_exists($filePath))
+                            array_push($arr, $filePath);
+                    }
+                    if(count($arr))
+                        return $arr;
                         return false;
                 case 'icon':
                     return "./views/public/assets/icon/$icon";
@@ -63,8 +75,8 @@
                         'header' => 'header.php',
                         'footer' => 'footer.php',
                         'icon' => 'welcome.png',
-                        'style' => 'home.min.css',
-                        'script' => 'home.js',
+                        'style' => ['home.min.css'],
+                        'script' => ['home.js'],
                     ];
                     if (isset($_SESSION['logged'])) 
                         return $this->getConfig($config);
@@ -81,14 +93,14 @@
                         'icon' => 'logIn.png',    
                         'header' => 'headerIn.php',
                         'footer' => 'footerIn.php',
-                        'style' => 'styleIn.min.css',
+                        'style' => ['styleIn.min.css'],
                     ];
                     return $this->getConfig($config);
                 case '/signup':
                     $config = [
                         'layout' => 'signUp.php', 
                         'title' => 'Sign Up',
-                        'style' => 'styleIn.min.css',
+                        'style' => ['styleIn.min.css'],
                         'icon' => 'signUp.png',    
                         'header' => 'headerIn.php',
                         'footer' => 'footerIn.php',

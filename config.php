@@ -10,7 +10,8 @@
     {
         $path = [
             "./controllers/$class.php",
-            "./models/$class.php"
+            "./models/$class.php",
+            "./routes/$class.php"
         ];
         foreach ($path as $value) 
            if (file_exists($value)) include_once $value;

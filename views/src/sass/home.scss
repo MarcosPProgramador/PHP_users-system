@@ -1,17 +1,33 @@
 .users {
-    top: 0;
-    right: 0;
-    position: absolute;
     min-height: 100vh;
-}
-.users-off {
-    width: 200px;
-    background-color: crimson;
-    height: 20px;
-}
-.users-on {
-    margin-left: 2px;
-    width: 200px;
-    height: 20px;
-    background-color: greenyellow;
+    z-index: 2;
+    position: relative;
+    .users__user-off,
+    .users__user-on {
+        margin: 10px;
+        margin-left: 50px;
+        width: 200px;
+        position: relative;
+        .users__user {
+            &::after {
+                content: '';
+                top: 50%;
+                left: -20px;
+                position: absolute;
+                border-radius: 50%;
+                display: block;
+                width: 10px;
+                height: 10px;
+                background-color: greenyellow;
+            }
+        }
+    }
+    .users__user-off {
+        margin-bottom: 50px !important;
+        .users__user {
+            &::after {
+                background-color: crimson;
+            }
+        }
+    }
 }

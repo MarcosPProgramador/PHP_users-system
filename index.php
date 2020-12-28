@@ -17,18 +17,18 @@ class simpleTasks
     }
 }
 
-simpleTasks::Class('viewController');
+simpleTasks::Class('viewRoutes');
 
 switch (simpleTasks::Resourse()) {
     case '/home':
         if (isset($_SESSION['logged'])) 
-            simpleTasks::Class('usersOnlineController');
+            simpleTasks::Class('usersController');
     break;
     case '/login':
-        simpleTasks::Class('logInController');
+        simpleTasks::Class('authenticationController');
     break;
     case '/signup':
-        simpleTasks::Class('signUpController');
+        simpleTasks::Class('authenticationController');
     break;
     
 }

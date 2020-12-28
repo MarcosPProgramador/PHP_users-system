@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="./views/public/styles/global.min.css">
     
     <?php if ($this->setConfig('style')):?>
-        <link rel="stylesheet" href="<?php echo $this->setConfig('style'); ?>">
+        <?php foreach ($this->setConfig('style') as $value):?>
+            <link rel="stylesheet" href="<?php echo $value; ?>">
+        <?php endforeach ?>
     <?php endif ?>
 
     <!-- icon -->
@@ -37,7 +39,9 @@
     <script src="./views/public/js/global.js"></script>
 
     <?php if ($this->setConfig('script')):?>
-        <script src="<?php echo $this->setConfig('script')?>"></script>
+        <?php foreach ($this->setConfig('script') as $value):?>
+            <script src="<?php echo $value?>"></script>
+        <?php endforeach ?>
     <?php endif ?>
 
 
