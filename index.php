@@ -21,14 +21,15 @@ simpleTasks::Class('viewRoutes');
 
 switch (simpleTasks::Resourse()) {
     case '/home':
-        if (isset($_SESSION['logged'])) 
+        if (isset($_SESSION['logged']))
             simpleTasks::Class('usersController');
+        
     break;
     case '/login':
-        simpleTasks::Class('authenticationController');
+        simpleTasks::Class('logInController');
     break;
     case '/signup':
-        simpleTasks::Class('authenticationController');
+        simpleTasks::Class('signUpController');
     break;
     
 }

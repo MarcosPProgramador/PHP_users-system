@@ -74,22 +74,18 @@ function success(_a) {
             })
                 .child({
                 Element: 'div',
-                Class: "users__user-on-off",
+                Class: "users__user-image",
                 Parent: '.users__user',
             })
                 .child({
                 Element: 'div',
-                Class: "users__user-image",
-                Parent: '.users__user-on-off',
-            })
-                .child({
-                Element: 'div',
                 Class: "users__user-name",
-                Parent: '.users__user-on-off',
+                Parent: '.users__user',
                 Content: user.name,
             });
         }
-        else {
+        if (Number(user.online)) {
+            console.log(user.online);
             _('.users__user-on')
                 .child({
                 Index: key,
@@ -98,20 +94,36 @@ function success(_a) {
             })
                 .child({
                 Element: 'div',
-                Class: "users__user-on-off",
+                Class: "users__user-image",
                 Parent: '.users__user',
             })
                 .child({
                 Element: 'div',
-                Class: "users__user-image",
-                Parent: '.users__user-on-off',
-            })
-                .child({
-                Element: 'div',
                 Class: "users__user-name",
-                Parent: '.users__user-on-off',
+                Parent: '.users__user',
                 Content: user.name,
             });
         }
+    });
+}
+comments();
+function comments() {
+    $('#send').on('click', function (e) {
+        e.preventDefault();
+        var textComment = $('#text-comment').val();
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost/projetos/linguagens/PHP_visitor-accountant/api/setCommentsApi.php',
+            data: { comment: textComment },
+            dataType: 'json',
+        });
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost/projetos/linguagens/PHP_visitor-accountant/api/getCommentsApi.php',
+            dataType: 'json',
+            success: function (res) {
+                console.log(res);
+            },
+        });
     });
 }

@@ -35,7 +35,8 @@
         ?> 
     </main>
 
-
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
     <script src="./views/public/js/global.js"></script>
 
     <?php if ($this->setConfig('script')):?>

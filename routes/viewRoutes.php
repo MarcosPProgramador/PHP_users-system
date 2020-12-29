@@ -24,27 +24,31 @@
                 case 'title':
                     return $title;
                 case 'style':
-                    $arr = [];
-                    foreach ($style as $value) {
-                        $filePath = "./views/public/styles/$value";
-                        if(file_exists($filePath))
-                            array_push($arr, $filePath);
-                    }
-                    if(count($arr))
-                        return $arr;
-                        return false;
+                    if($style != 'undefined'){
+                        $arr = [];
+                        foreach ($style as $value) {
+                            $filePath = "./views/public/styles/$value";
+                            if(file_exists($filePath))
+                                array_push($arr, $filePath);
+                        }
+                        if(count($arr))
+                            return $arr;
+                            return false;
+                    }else return false;;
 
                     
                 case 'script':
-                    $arr = [];
-                    foreach ($script as $value) {
-                        $filePath = "./views/public/js/$value";
-                        if(file_exists($filePath))
-                            array_push($arr, $filePath);
-                    }
-                    if(count($arr))
-                        return $arr;
-                        return false;
+                    if($script != 'undefined'){
+                        $arr = [];
+                        foreach ($script as $value) {
+                            $filePath = "./views/public/js/$value";
+                            if(file_exists($filePath))
+                                array_push($arr, $filePath);
+                        }
+                        if(count($arr))
+                            return $arr;
+                            return false;
+                    } else return false;
                 case 'icon':
                     return "./views/public/assets/icon/$icon";
                 case 'header':
