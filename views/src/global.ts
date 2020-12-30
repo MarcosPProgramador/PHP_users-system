@@ -1,6 +1,4 @@
-const _ = (elm: string) => {
-    const e = <HTMLElement>document.querySelector(elm)
-    const es = document.querySelectorAll(elm)
+function _(elm: string) {
     interface childElement {
         Element: string
         Class: string
@@ -10,34 +8,34 @@ const _ = (elm: string) => {
     }
     const querys = (elm: string, index: number) =>
         <HTMLElement>document.querySelectorAll(elm)[index]
+    const query = (elm: string) => <HTMLElement>document.querySelector(elm)
 
-    const html = (elmHtml: string) => {
-        es.forEach((elm) => {
-            elm.innerHTML = elmHtml
-        })
+    function _Class(Class: string) {
+        const a = Class.search(/[.]/) + 1
+        const b = Class.length
+
+        return Class.slice(a, b)
     }
-    const text = (txt: string, i?: number) => {
-        e.innerText = txt
+    function _Parent(Parent: string) {
+        const a = Parent.search(/[.]/)
 
-        // es.forEach((elm) => {
-        //   (<HTMLElement>elm).innerText = txt;
-        // });
-    }
-
-    let _index: number = 0
-    const child = (configElement: childElement) => {
-        const children = document.createElement(configElement.Element)
-
-        _index = configElement.Index != undefined ? configElement.Index : _index
-
-        children.className = configElement.Class
-        children.textContent = <string>configElement.Content
-
-        if (!configElement.Parent) e.appendChild(children)
-        else querys(configElement.Parent, _index).appendChild(children)
-
-        return { child }
+        if (a < 0) return `.${Parent}`
+        else return Parent
     }
 
-    return { child, html, text }
+    const Child = ({
+        Class,
+        Element,
+        Index,
+        Content,
+        Parent,
+    }: childElement) => {
+        _Class(Class)
+        if (Parent) {
+            _Parent(Parent)
+        }
+
+        return { Child }
+    }
+    return { Child }
 }

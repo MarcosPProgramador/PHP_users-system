@@ -22,6 +22,8 @@
                 $tel = $_GET['tel'];
                 
                 $_SESSION['firstname'] = $firstname;
+                $_SESSION['lastname'] = $lastname;
+                
                 $_SESSION['signup'] = true;
 
                 return [

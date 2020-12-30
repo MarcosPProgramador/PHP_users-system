@@ -65,65 +65,51 @@ function success(_a) {
     var datas = _a.datas;
     console.log(datas);
     datas.map(function (user, key) {
+        var off = document.querySelector('.users__user-off');
+        var on = document.querySelector('.users__user-on');
         if (!Number(user.online)) {
-            _('.users__user-off')
-                .child({
+            off.innerHTML += "\n            <div class=\"users__user\">\n                <div class=\"users__user-image\"></div>\n                <div class=\"users__user-name\">" + user.name + "</div>\n            </div>  \n            ";
+            _('').Child({
                 Index: key,
                 Element: 'div',
-                Class: "users__user",
-            })
-                .child({
-                Element: 'div',
-                Class: "users__user-image",
-                Parent: '.users__user',
-            })
-                .child({
-                Element: 'div',
-                Class: "users__user-name",
-                Parent: '.users__user',
-                Content: user.name,
+                Class: 'users__user',
+                Parent: 'saa',
             });
         }
-        if (Number(user.online)) {
-            console.log(user.online);
-            _('.users__user-on')
-                .child({
-                Index: key,
-                Element: 'div',
-                Class: "users__user",
-            })
-                .child({
-                Element: 'div',
-                Class: "users__user-image",
-                Parent: '.users__user',
-            })
-                .child({
-                Element: 'div',
-                Class: "users__user-name",
-                Parent: '.users__user',
-                Content: user.name,
-            });
+        else {
+            on.innerHTML += "\n            <div class=\"users__user\">\n                <div class=\"users__user-image\"></div>\n                <div class=\"users__user-name\">" + user.name + "</div>\n            </div>\n            ";
         }
     });
 }
 comments();
 function comments() {
     $('#send').on('click', function (e) {
-        e.preventDefault();
         var textComment = $('#text-comment').val();
         $.ajax({
-            type: 'get',
+            type: 'POST',
             url: 'http://localhost/projetos/linguagens/PHP_visitor-accountant/api/setCommentsApi.php',
             data: { comment: textComment },
             dataType: 'json',
-        });
-        $.ajax({
-            type: 'post',
-            url: 'http://localhost/projetos/linguagens/PHP_visitor-accountant/api/getCommentsApi.php',
-            dataType: 'json',
             success: function (res) {
-                console.log(res);
+                $('.getcomments_comment').append('');
+                getComments();
             },
         });
     });
+    function getComments() {
+        var getcomments_comment = (document.querySelector('.getcomments_comment'));
+        getcomments_comment.innerHTML = '';
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/projetos/linguagens/PHP_visitor-accountant/api/getCommentsApi.php',
+            dataType: 'json',
+            success: function (_a) {
+                var datas = _a.datas;
+                $.map(datas, function (comment) {
+                    getcomments_comment.innerHTML += "<div>" + comment.comment + "</div>";
+                });
+            },
+        });
+    }
+    getComments();
 }

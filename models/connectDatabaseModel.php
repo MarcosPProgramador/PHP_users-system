@@ -24,7 +24,7 @@
                 
                 $this->connectDB = $connectDB;
             } catch (\Throwable $th) {
-                die($th->getMessage());
+                die('Error');
             }
         }
 

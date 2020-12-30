@@ -5,14 +5,42 @@
     {
         public function __construct()
         {   
-            $comment = $_GET['comment'] ?? null;
+            session_start();
+            $comment = $_POST['comment'] ?? null;
+            $name = $_SESSION['firstname'] ?? null;
+            $email = $_SESSION['email'] ?? null;
+            
             $connectDB = tasksApi::Class('connectDatabaseModel');
-            $queryInsertComment = $connectDB->query('INSERT INTO comments (lastaction,comment) VALUES (?,?)');
-            if ($comment) {
-                $queryInsertComment->execute([date('Y-m-d H:i:s'), $comment]);
-                if ($queryInsertComment->rowCount()) 
-                    echo json_encode(array('status'=> 'success', 'datas' => 'success send'));
-                else  echo json_encode(array('status'=> 'error', 'datas' => 'not content 204'));
+
+            try {
+                $query = '  INSERT INTO comments 
+                            (
+                                name,
+                                email,
+                                comment,
+                                lastaction
+                            ) 
+                            
+                            VALUES 
+                            (
+                                ?,
+                                ?,
+                                ?,
+                                ?
+                            )
+                
+                ';
+
+                $queryInsertComment = $connectDB->query($query);
+                if($comment){
+                    $queryInsertComment->execute([$name,$email, $comment, date('Y-m-d H:i:s')]);
+                    
+                    if ($queryInsertComment->rowCount()) 
+                        echo json_encode(array('status'=> 'success', 'datas' => 'success'));
+                    else  echo json_encode(array('status'=> 'error', 'datas' => 'error'));
+                }
+            } catch (\Throwable $th) {
+                die('');
             }
         }
     }
