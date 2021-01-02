@@ -9,29 +9,16 @@ class simpleTasks
         if (class_exists($class)) 
             return new $class;   
     }
-    public static function Resourse()
+    public static function Endpoint()
     {
-        $resource = $_GET['url'] ?? 'home';
-        $resource = strtolower($resource);
-        return "/$resource";
+        $endpoint = $_GET['url'] ?? 'home';
+        $endpoint = strtolower($endpoint);
+        return "/$endpoint";
     }
 }
 
-simpleTasks::Class('viewRoutes');
+simpleTasks::Class('viewRoute');
+simpleTasks::Class('classRoute');
 
-switch (simpleTasks::Resourse()) {
-    case '/home':
-        if (isset($_SESSION['logged']))
-            simpleTasks::Class('usersController');
-        
-    break;
-    case '/login':
-        simpleTasks::Class('logInController');
-    break;
-    case '/signup':
-        simpleTasks::Class('signUpController');
-    break;
-    
-}
 
  

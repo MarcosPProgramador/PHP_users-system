@@ -1,5 +1,5 @@
 <?php 
-    class viewRoutes
+    class viewRoute
     {   
         public function __construct() {
             include './views/public/template.php';
@@ -71,21 +71,23 @@
         {   
             $this->response = strtolower($response);
 
-            switch (simpleTasks::Resourse()) {
+            switch (simpleTasks::Endpoint()) {
                 case '/home':
-                    $config = [
-                        'layout' => 'home.php', 
-                        'title' => 'Welcome!',
-                        'header' => 'header.php',
-                        'footer' => 'footer.php',
-                        'icon' => 'welcome.png',
-                        'style' => ['home.min.css'],
-                        'script' => ['home.js'],
-                    ];
-                    if (isset($_SESSION['logged'])) 
-                        return $this->getConfig($config);
+                    if (isset($_SESSION['logged'])){ 
 
-                    
+                        $config = [
+                            'layout' => 'home.php', 
+                            'title' => 'Welcome!',
+                            'header' => 'header.php',
+                            'footer' => 'footer.php',
+                            'icon' => 'welcome.png',
+                            'style' => ['home.min.css'],
+                            'script' => ['home.js'],
+                        ];
+
+                        return $this->getConfig($config);
+                    };
+
                     header('Location: logIn');
                     exit();
                 break;
@@ -114,7 +116,7 @@
                     
                     $config = [
                         'layout' => 'error.php',
-                        'title' => '[Error] 404', 
+                        'title' => '[Error] 204', 
                         'icon' => 'error.png',    
                     ];
 

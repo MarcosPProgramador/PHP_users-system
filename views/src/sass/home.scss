@@ -26,53 +26,93 @@
     }
 }
 .users {
+    user-select: none;
+
     min-height: 100vh;
     z-index: 2;
-    .users__user-off,
-    .users__user-on {
-        margin: 10px;
+    .users__online {
+        margin-bottom: 60px;
+    }
+    .users__online,
+    .users__offline {
         margin-left: 50px;
-        width: 200px;
-        .users__user {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            .users__user-image {
-                flex-shrink: 0;
-                background-color: #222222;
-                width: 40px;
-                height: 40px;
-                border-radius: 50rem;
-                position: relative;
-                &::after {
-                    cursor: pointer;
-                    content: '';
-                    bottom: 0;
-                    right: 0;
-                    position: absolute;
-                    border-radius: 50%;
-                    display: block;
-                    border: 2px solid #222222;
-                    width: 10px;
-                    height: 10px;
-                    background-color: greenyellow;
+        width: 100%;
+        max-width: 200px;
+        h2 {
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .users__user-off,
+        .users__user-on {
+            margin: 10px;
+            margin-left: 0;
+            .users__userof,
+            .users__usero {
+                display: flex;
+                align-items: center;
+                margin: 10px 0;
+                .users__user-image {
+                    flex-shrink: 0;
+                    background-color: #222222;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50rem;
+                    position: relative;
+                    &::after {
+                        cursor: pointer;
+                        content: '';
+                        bottom: 0;
+                        right: 0;
+                        position: absolute;
+                        border-radius: 50%;
+                        display: block;
+                        border: 2px solid #222222;
+                        width: 7px;
+                        height: 7px;
+                        background-color: greenyellow;
+                    }
+                }
+                .users__user-name {
+                    font-size: 18px;
+                    margin-left: 10px;
                 }
             }
-            .users__user-name {
-                font-size: 18px;
-                margin-left: 10px;
+        }
+        .users__user-off {
+            opacity: 0.5;
+            margin-bottom: 50px !important;
+            .users__userof {
+                .users__user-image {
+                    &::after {
+                        content: '';
+                        background-color: crimson !important;
+                    }
+                }
+                .users__user-namelastaction {
+                    margin-left: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    .users__user-name {
+                        font-size: 18px;
+                        margin-left: 0;
+                    }
+                    .users__user-lastaction {
+                        margin-top: 2px;
+                        font-size: 12px;
+                        color: #8d99ae;
+                    }
+                }
             }
         }
     }
-    .users__user-off {
-        margin-bottom: 50px !important;
-        .users__user {
-            .users__user-image {
-                &::after {
-                    content: '';
-                    background-color: crimson !important;
-                }
-            }
-        }
+    .loading {
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 1;
     }
 }

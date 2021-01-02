@@ -1,6 +1,8 @@
 <?php 
 
-    header('Content-type: application/JSON; charset=utf8');
+    header('Content-Type: application/json; charset=utf8');
+    date_default_timezone_set('America/Sao_paulo');
+    
     class tasksApi
     {
         public static function Class($class)
