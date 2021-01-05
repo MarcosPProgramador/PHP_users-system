@@ -1,60 +1,73 @@
 "use strict";
-var path = 'http://localhost/projetos/linguagens/PHP_visitor-accountant/', commentsApi = path + "api/commentsApi.php", usersOnApi = path + "api/usersOnApi.php", usersOffApi = path + "api/usersOffApi.php";
+var path = 'http://localhost/projetos/linguagens/PHP_user-system/', commentsApi = path + "api/commentsApi.php", usersOnApi = path + "api/usersOnApi.php", usersOffApi = path + "api/usersOffApi.php";
 setComments();
 function setComments() {
+    $(document).on('keypress', function (e) {
+        if (e.key == 'Enter')
+            requestAjaxComments();
+    });
     $('#send').on('click', function (e) {
-        var textComment = $('#text-comment').val();
-        $.ajax({
-            type: 'POST',
-            url: path + "ajax/commentsAjax.php",
-            data: { comment: textComment },
-            dataType: 'json',
-            success: function () {
-                $('#text-comment').val('');
-                $('.getcomments_user').remove();
-                getComments();
-            },
-        });
+        requestAjaxComments();
     });
 }
 getComments();
 function getComments() {
     getContext(commentsApi, function (datas) {
         $.map(datas, function (data, key) {
-            _('.getcomments_container')
+            var lastaction = data.lastaction.replace(/[-]/g, '/');
+            var _a = lastaction.split(' '), date = _a[0], time = _a[1];
+            _('.getcomments__container')
                 .Child({
                 Index: key,
                 Element: 'div',
-                Class: 'getcomments_user',
+                Class: 'getcomments__user',
             })
                 .Child({
                 Element: 'div',
-                Class: 'getcomments_top',
-                Parent: 'getcomments_user',
+                Class: 'getcomments__top',
+                Parent: 'getcomments__user',
             })
                 .Child({
                 Element: 'div',
-                Class: 'getcomments_image',
-                Parent: 'getcomments_top',
+                Class: 'getcomments__image',
+                Parent: 'getcomments__top',
             })
                 .Child({
                 Element: 'div',
-                Class: 'getcomments_name',
-                Parent: 'getcomments_top',
+                Class: 'getcomments__name',
+                Parent: 'getcomments__top',
                 Content: data.name,
             })
                 .Child({
                 Element: 'div',
-                Class: 'getcomments_bottom',
-                Parent: 'getcomments_user',
+                Class: 'getcomments__datetime',
+                Parent: 'getcomments__top',
             })
                 .Child({
                 Element: 'div',
-                Class: 'getcomments_comment',
-                Parent: 'getcomments_bottom',
+                Class: 'getcomments__date',
+                Parent: 'getcomments__datetime',
+                Content: date,
+            })
+                .Child({
+                Element: 'div',
+                Class: 'getcomments__time',
+                Parent: 'getcomments__datetime',
+                Content: time,
+            })
+                .Child({
+                Element: 'div',
+                Class: 'getcomments__bottom',
+                Parent: 'getcomments__user',
+            })
+                .Child({
+                Element: 'div',
+                Class: 'getcomments__comment',
+                Parent: 'getcomments__bottom',
                 Content: data.comment,
             });
         });
+        $('.getcomments').scrollTop($('.getcomments')[0].scrollHeight);
     });
 }
 setUser();
@@ -64,6 +77,21 @@ function setUser() {
             requestAjaxUsersOff();
             requestAjaxUsersOn();
         }
+    });
+}
+requestAjaxComments();
+function requestAjaxComments() {
+    var textComment = $('#text-comment').val();
+    $.ajax({
+        type: 'POST',
+        url: path + "ajax/commentsAjax.php",
+        data: { comment: textComment },
+        dataType: 'json',
+        success: function () {
+            $('#text-comment').val('');
+            $('.getcomments__user').remove();
+            getComments();
+        },
     });
 }
 requestAjaxUsersOff();

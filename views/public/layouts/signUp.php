@@ -14,7 +14,7 @@
             <input type="tel" name="tel" required placeholder="Telefone" />
         </div>
         <div>
-            <input type="submit" name="action"/>
+            <input type="submit" name="action" />
         </div>
     </form>
 </section>

@@ -1,21 +1,20 @@
-<?php 
-    class logInModel 
+<?php
+class logInModel
+{
+    public function getFormData()
     {
-        public function getFormData() {
-       
 
-            $_SESSION['email'] = $_POST['email'];
-            $_SESSION['token'] = uniqid(); 
 
-            $_SESSION['logged'] = true;
+        $_SESSION['email'] = $_POST['email'];
+        $_SESSION['token'] = uniqid();
 
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            return [
-                $email,
-                $password
-            ];
-            
-        }
+        $_SESSION['logged'] = true;
+
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        return [
+            $email,
+            $password
+        ];
     }
-    
+}

@@ -8,6 +8,7 @@
             session_start();
             $this->name = $_SESSION['firstname'];
             $this->token = $_SESSION['token'];
+            $this->email = $_SESSION['email'];
             $this->date = date('Y-m-d H:i:s');
             
             $this->connectDB = tasksApi::Class('connectDatabaseModel');
@@ -31,12 +32,14 @@
             $query = '  INSERT INTO `users.on` 
                         (
                             name,
+                            email,
                             token,
                             lastaction
                         ) 
                         
                         VALUES 
                         (
+                            ?,
                             ?,
                             ?,
                             ?
@@ -47,6 +50,7 @@
     
             $queryInsertUserOn->execute([  
                 $this->name,
+                $this->email,
                 $this->token,
                 $this->date
             ]);
@@ -60,11 +64,11 @@
             $querydel = 'DELETE FROM 
                             `users.off` 
                             WHERE 
-                            token = ?
+                            email = ?
             ';
 
             $queryDeleteUserRepeated = $this->connectDB->query($querydel);
-            $queryDeleteUserRepeated->execute([$this->token]);
+            $queryDeleteUserRepeated->execute([$this->email]);
         }
         public function deleteUserOffInUserOn()
         {
@@ -111,11 +115,13 @@
                             `users.off` 
                             (
                                 name,
+                                email,
                                 lastaction,
                                 token
                             )
                             SELECT 
                                 name,
+                                email,
                                 lastaction,
                                 token 
                             FROM 

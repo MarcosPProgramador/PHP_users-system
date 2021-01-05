@@ -79,7 +79,6 @@
                             'layout' => 'home.php', 
                             'title' => 'Welcome!',
                             'header' => 'header.php',
-                            'footer' => 'footer.php',
                             'icon' => 'welcome.png',
                             'style' => ['home.min.css'],
                             'script' => ['home.js'],
