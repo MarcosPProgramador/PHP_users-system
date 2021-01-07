@@ -1,24 +1,24 @@
-<?php 
+<?php
 
 require './config.php';
+class simpleTasks {
 
-class simpleTasks
-{
-    public static function Class($class)
-    {
-        if (class_exists($class)) 
-            return new $class;   
+    public static function Class ($class) {
+
+        if (class_exists($class)) {
+            return new $class();
+        }
+
     }
-    public static function Endpoint()
-    {
+
+    public static function Endpoint() {
+
         $endpoint = $_GET['url'] ?? 'home';
         $endpoint = strtolower($endpoint);
         return "/$endpoint";
     }
+
 }
 
 simpleTasks::Class('viewRoute');
 simpleTasks::Class('classRoute');
-
-
- 

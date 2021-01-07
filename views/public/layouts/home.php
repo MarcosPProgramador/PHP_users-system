@@ -6,7 +6,7 @@
             </div>
             <div class="setcomments">
                 <div class="setcomments__flex">
-                    <textarea name="text-comment" id="text-comment" class="setcomments__text-comment"></textarea>
+                    <textarea id="text-comment" class="setcomments__text-comment"></textarea>
                     <button class="setcomments__send setcomments__send--disabled" id="send">
 
                         <svg viewBox="0 0 367.92 367.92">
@@ -32,7 +32,11 @@
             </div>
         </div>
 
-        <div class="users">
+        <div class="users-button-burger" id="burger">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="users" id="navbar">
             <div class="users__online">
                 <h2>Disponível - <span class="count"></span></h2>
                 <div class="users__user-on"></div>

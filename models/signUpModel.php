@@ -1,19 +1,16 @@
 <?php
 
-class signUpModel
-{
-    public function isEmpty($formData)
-    {
+class signUpModel {
+    public function isEmpty($formData) {
     }
-    public function isRegularExpression($formData)
-    {
-    }
-    public function isCountLimit($formData)
-    {
-    }
-    public function getFormData()
-    {
 
+    public function isRegularExpression($formData) {
+    }
+
+    public function isCountLimit($formData) {
+    }
+
+    public function getFormData() {
 
         $firstname = $_GET['firstname'];
         $lastname = $_GET['lastname'];
@@ -31,7 +28,7 @@ class signUpModel
             $lastname,
             $email,
             $password,
-            $tel
+            $tel,
         ];
     }
 }

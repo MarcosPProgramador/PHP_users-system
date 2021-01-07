@@ -4,11 +4,16 @@ type ApiRest<N> = {
 }
 type Fn<T> = (datas: [T]) => void
 
+const path = 'http://localhost/projetos/linguagens/PHP_user-system/',
+    commentsApi = `${path}api/commentsApi.php`,
+    usersOnApi = `${path}api/usersOnApi.php`,
+    usersOffApi = `${path}api/usersOffApi.php`
+
 async function getContext<T>(api: string, callbackFn: Fn<T>) {
     try {
         const response = await fetch(api),
             ApiRestDatas = <ApiRest<T>>await response.json()
-        
+
         if (ApiRestDatas.status == 'error') throw ApiRestDatas.datas
         else callbackFn(ApiRestDatas.datas)
     } catch (error) {

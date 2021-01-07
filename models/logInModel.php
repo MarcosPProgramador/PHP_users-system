@@ -1,9 +1,6 @@
 <?php
-class logInModel
-{
-    public function getFormData()
-    {
-
+class logInModel {
+    public function getFormData() {
 
         $_SESSION['email'] = $_POST['email'];
         $_SESSION['token'] = uniqid();
@@ -14,7 +11,7 @@ class logInModel
         $password = $_POST['password'];
         return [
             $email,
-            $password
+            $password,
         ];
     }
 }

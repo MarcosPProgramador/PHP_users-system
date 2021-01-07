@@ -35,6 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var path = 'http://localhost/projetos/linguagens/PHP_user-system/', commentsApi = path + "api/commentsApi.php", usersOnApi = path + "api/usersOnApi.php", usersOffApi = path + "api/usersOffApi.php";
 function getContext(api, callbackFn) {
     return __awaiter(this, void 0, void 0, function () {
         var response, ApiRestDatas, error_1;

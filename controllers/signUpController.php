@@ -1,13 +1,10 @@
 <?php
-class signUpController
-{
-    public function __construct()
-    {
+class signUpController {
+    public function __construct() {
         $this->signUpModel();
     }
 
-    public function signUpModel()
-    {
+    public function signUpModel() {
         $signUp = simpleTasks::Class('signUpModel');
 
         if (isset($_GET['action'])) {
@@ -16,5 +13,7 @@ class signUpController
             echo '</div>';
             header('Location: login');
         }
+
     }
+
 }
