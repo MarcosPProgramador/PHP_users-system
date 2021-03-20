@@ -1,25 +1,3 @@
-type ApiRest<N> = {
-    status: string
-    datas: [N]
-}
-type Fn<T> = (datas: [T]) => void
-
-const path = 'http://localhost/projetos/linguagens/PHP_user-system/',
-    commentsApi = `${path}api/commentsApi.php`,
-    usersOnApi = `${path}api/usersOnApi.php`,
-    usersOffApi = `${path}api/usersOffApi.php`
-
-async function getContext<T>(api: string, callbackFn: Fn<T>) {
-    try {
-        const response = await fetch(api),
-            ApiRestDatas = <ApiRest<T>>await response.json()
-
-        if (ApiRestDatas.status == 'error') throw ApiRestDatas.datas
-        else callbackFn(ApiRestDatas.datas)
-    } catch (error) {
-        console.error(error)
-    }
-}
 function _(elm: string) {
     interface childElement {
         Element: string
@@ -86,3 +64,57 @@ function _(elm: string) {
 
     return { Child }
 }
+type IMethods =
+    | 'GET'
+    | 'POST'
+    | 'PUT'
+    | 'DELETE'
+    | 'get'
+    | 'post'
+    | 'put'
+    | 'delete'
+function request(
+    method: IMethods,
+    callback: (res: any) => void,
+    url: string,
+    data?: any
+) {
+    const xhr = new XMLHttpRequest()
+
+    xhr.responseType = 'json'
+
+    xhr.open(method, url, true)
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) callback(xhr.response)
+    }
+
+    if (data) {
+        const urlencoded = String(new URLSearchParams(data))
+
+        xhr.send(urlencoded)
+    } else xhr.send()
+}
+const app = {
+    baseUrl: location.href.slice(0, -1),
+    get: (resource: string, callback: (res: any) => void) => {
+        const url = `${app.baseUrl}${resource}`
+
+        request('GET', callback, url)
+    },
+    post: (resource: string, callback: (res: any) => void, data?: any) => {
+        const url = `${app.baseUrl}${resource}`
+        request('POST', callback, url, data)
+    },
+    put: (resource: string, callback: (res: any) => void, data?: any) => {
+        const url = `${app.baseUrl}${resource}`
+        request('PUT', callback, url, data)
+    },
+    delete: (resource: string, callback: (res: any) => void) => {
+        const url = `${app.baseUrl}${resource}`
+        request('DELETE', callback, url)
+    },
+}
+app.get('/auth', (res) => {
+    console.log(res)
+})

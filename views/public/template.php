@@ -39,7 +39,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="./views/public/js/global.js"></script>
+    <script src="./views/public/assets/js/global.js"></script>
 
     <?php if ($this->setConfig('script')) : ?>
         <?php foreach ($this->setConfig('script') as $value) : ?>
