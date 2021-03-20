@@ -4,22 +4,6 @@ type ApiRest<N> = {
 }
 type Fn<T> = (datas: [T]) => void
 
-const path = 'http://localhost/projetos/linguagens/PHP_user-system/',
-    commentsApi = `${path}api/commentsApi.php`,
-    usersOnApi = `${path}api/usersOnApi.php`,
-    usersOffApi = `${path}api/usersOffApi.php`
-
-async function getContext<T>(api: string, callbackFn: Fn<T>) {
-    try {
-        const response = await fetch(api),
-            ApiRestDatas = <ApiRest<T>>await response.json()
-
-        if (ApiRestDatas.status == 'error') throw ApiRestDatas.datas
-        else callbackFn(ApiRestDatas.datas)
-    } catch (error) {
-        console.error(error)
-    }
-}
 function _(elm: string) {
     interface childElement {
         Element: string
@@ -86,3 +70,61 @@ function _(elm: string) {
 
     return { Child }
 }
+type IMethods =
+    | 'GET'
+    | 'POST'
+    | 'DELETE'
+    | 'PUT'
+    | 'get'
+    | 'post'
+    | 'delete'
+    | 'put'
+type ICallback = (response: any) => void
+
+function request(
+    method: IMethods,
+    url: string,
+    callback: ICallback,
+    data?: any
+) {
+    const xhr = new XMLHttpRequest()
+
+    xhr.responseType = 'json'
+
+    xhr.open(method, url, true)
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) callback(xhr.response)
+    }
+    if (data) {
+        let dataStr = ''
+        for (const key in data) {
+            dataStr += `${key}=${data[key]}&`
+        }
+
+        xhr.send(dataStr.slice(0, -1))
+    } else xhr.send()
+}
+
+const app = {
+    baseUrl: location.href.slice(0, -1),
+    get: (resourse: string, callback: ICallback) => {
+        const url = `${app.baseUrl}${resourse}`
+        request('GET', url, callback)
+    },
+    post: (resourse: string, callback: ICallback, data?: any) => {
+        const url = `${app.baseUrl}${resourse}`
+        request('POST', url, callback, data)
+    },
+    put: (resourse: string, callback: ICallback, data?: any) => {
+        const url = `${app.baseUrl}${resourse}`
+        request('PUT', url, callback, data)
+    },
+    delete: (resourse: string, callback: ICallback) => {
+        const url = `${app.baseUrl}${resourse}`
+        request('DELETE', url, callback)
+    },
+}
+app.get('/auth', (res) => {
+    console.log(res)
+})
