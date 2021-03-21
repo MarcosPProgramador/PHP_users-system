@@ -21,7 +21,6 @@ class api {
             $controller = simpleTasks::Class($controller);
 
             $datas = call_user_func([$controller, $method]);
-
             http_response_code($datas['code']);
 
             exit(json_encode($datas['datas'], JSON_UNESCAPED_UNICODE));

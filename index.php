@@ -20,5 +20,5 @@ class simpleTasks {
 
 }
 
-simpleTasks::Class('viewRoute');
-simpleTasks::Class('classRoute');
+simpleTasks::Class('routes');
+simpleTasks::Class('controller');

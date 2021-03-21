@@ -6,10 +6,11 @@
 
 -   desktop
 
-    ![desktop](./views/public/assets/img/layout-desktop.png)
+    ![desktop](./.github/layout-desktop.png)
+
 -   mobile
 
-    ![mobile](./views/public/assets/img/layout-mobile.png)
+    ![mobile](./.github/layout-mobile.png)
 
 ### **technologies used**
 
@@ -26,4 +27,3 @@
 -   yarn
 
 ## **Front-end** && **Back-end**
-

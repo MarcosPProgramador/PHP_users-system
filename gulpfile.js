@@ -10,7 +10,7 @@ sass.compiler = require('node-sass')
 
 // Src Dist
 var src_ = ['./views/src/sass/*.scss', './views/src/sass/**/*.scss']
-var dist = './views/public/styles'
+var dist = './views/public/assets/styles'
 
 // Options config
 var sassOptions = {
