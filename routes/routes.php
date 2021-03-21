@@ -1,7 +1,7 @@
 <?php
 class routes {
     public function __construct() {
-        $api = simpleTasks::Class('api');
+        $api = tasks::Class('api');
 
         $this->authController($api);
         $this->userController($api);

@@ -99,7 +99,7 @@ class controller {
     public function setConfig($response) {
 
         $this->response = strtolower($response);
-        $endpoint = simpleTasks::Endpoint();
+        $endpoint = tasks::Endpoint();
 
         switch ($endpoint) {
         case '/home':

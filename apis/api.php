@@ -8,7 +8,7 @@ class api {
         $request = $_SERVER['REQUEST_METHOD'];
 
         self::$request = $request;
-        self::$endpoint = simpleTasks::Endpoint() === '/home' ? '/' : simpleTasks::Endpoint();
+        self::$endpoint = tasks::Endpoint() === '/home' ? '/' : tasks::Endpoint();
 
     }
 
@@ -18,7 +18,7 @@ class api {
             $controller = explode('@', $method)[0];
             $method = explode('@', $method)[1];
 
-            $controller = simpleTasks::Class($controller);
+            $controller = tasks::Class($controller);
 
             $datas = call_user_func([$controller, $method]);
             http_response_code($datas['code']);

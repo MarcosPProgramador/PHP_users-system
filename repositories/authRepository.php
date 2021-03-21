@@ -1,5 +1,5 @@
 <?php
 
-class authRepository {
- 
+class authRepository extends repository {
+
 }

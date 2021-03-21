@@ -1,6 +1,7 @@
 <?php
-class userRepository {
-    public function create() {
-        
+class userRepository extends repository {
+    public function findUsers() {
+        return $this->find('users');
+
     }
 }

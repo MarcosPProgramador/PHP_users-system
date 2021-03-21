@@ -2,7 +2,7 @@
 class connection {
     const PASSWORD = '';
     const USER = 'root';
-    const DATABASE = 'dbname=database';
+    const DATABASE = 'dbname=db_users-system';
     const HOST = 'mysql:host=localhost;';
 
     public $connectDB;
@@ -27,7 +27,7 @@ class connection {
         }
     }
 
-    public function query($query) {
-        return $query = $this->connectDB->prepare($query);
+    public function query(string $query, array $params = null) {
+        return $this->connectDB->prepare($query);
     }
 }

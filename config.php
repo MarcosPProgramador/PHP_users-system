@@ -11,6 +11,8 @@ spl_autoload_register(function ($class) {
         "./models/$class.php",
         "./apis/$class.php",
         "./routes/$class.php",
+        "./database/$class.php",
+        "./repositories/$class.php",
     ];
 
     foreach ($path as $value) {

@@ -1,7 +1,7 @@
 <?php
 
 require './config.php';
-class simpleTasks {
+class tasks {
 
     public static function Class ($class) {
 
@@ -20,5 +20,5 @@ class simpleTasks {
 
 }
 
-simpleTasks::Class('routes');
-simpleTasks::Class('controller');
+tasks::Class('routes');
+tasks::Class('controller');
