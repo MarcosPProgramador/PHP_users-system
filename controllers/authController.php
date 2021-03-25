@@ -8,7 +8,7 @@ class authController {
             'code'  => 200,
             'datas' => [
                 [
-                    'name' => 'marcos',
+                    'name' => 'marco',
                 ], [
                     'name' => 'pedro',
                 ],
