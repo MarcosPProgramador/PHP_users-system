@@ -7,4 +7,6 @@ class commentController {
             'datas' => $commentRepository->findComments(),
         ];
     }
+    public function store() {
+    }
 }
