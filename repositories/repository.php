@@ -3,6 +3,7 @@
 abstract class repository {
     public function __construct() {
         $this->connection = tasks::Class('connection');
+
     }
 
     protected function find(string $table) {
@@ -15,4 +16,5 @@ abstract class repository {
 
         return $users;
     }
+
 }

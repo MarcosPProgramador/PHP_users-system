@@ -15,37 +15,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
     <!-- styles -->
-    <link rel="stylesheet" href="./views/public/styles/global.min.css">
+    <link rel="stylesheet" href="<?php echo PATH?>views/public/assets/styles/global.min.css">
 
-    <?php if ($this->setConfig('style')) : ?>
-        <?php foreach ($this->setConfig('style') as $value) : ?>
-            <link rel="stylesheet" href="<?php echo $value; ?>">
-        <?php endforeach ?>
-    <?php endif ?>
+    <?php
+
+    if ($this->setConfig('style')): ?>
+<?php
+
+foreach ($this->setConfig('style') as $value): ?>
+            <link rel="stylesheet" href="<?php echo PATH.$value; ?>">
+        <?php endforeach?>
+<?php endif?>
 
     <!-- icon -->
-    <link rel="shortcut icon" href="<?php echo $this->setConfig('icon'); ?>" type="image/png">
+    <link rel="shortcut icon" href="<?php echo PATH.$this->setConfig('icon'); ?>" type="image/png">
     <!-- title -->
-    <title><?php echo $this->setConfig('title'); ?></title>
+    <title><?php echo PATH.$this->setConfig('title'); ?></title>
 </head>
 
 <body>
     <main>
         <?php
-        $this->setConfig('header');
-        $this->setConfig('section');
-        $this->setConfig('footer');
+            $this->setConfig('header');
+            $this->setConfig('section');
+            $this->setConfig('footer');
         ?>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="./views/public/assets/js/global.js"></script>
+    <script src="<?php echo PATH?>views/public/assets/js/global.js"></script>
 
-    <?php if ($this->setConfig('script')) : ?>
-        <?php foreach ($this->setConfig('script') as $value) : ?>
-            <script src="<?php echo $value ?>"></script>
-        <?php endforeach ?>
-    <?php endif ?>
+    <?php
+
+    if ($this->setConfig('script')): ?>
+<?php
+
+foreach ($this->setConfig('script') as $value): ?>
+            <script src="<?php echo PATH . $value ?>"></script>
+        <?php endforeach?>
+<?php endif?>
 
 
 </body>

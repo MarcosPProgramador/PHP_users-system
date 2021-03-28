@@ -2,11 +2,14 @@
 class commentController {
     public function index() {
         $commentRepository = tasks::Class('commentRepository');
+        $comments = $commentRepository->findComments();
+        
         return [
             'code'  => 200,
-            'datas' => $commentRepository->findComments(),
+            'datas' => $comments,
         ];
     }
+
     public function store() {
     }
 }

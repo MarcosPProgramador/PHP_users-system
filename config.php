@@ -2,7 +2,8 @@
 
 session_start();
 ob_start();
-define('PATH', 'http://localhost/projetos/linguagens/online-user-system/');
+define('PATH', 'http://localhost:8080/');
+define('DIR', __DIR__);
 date_default_timezone_set('America/Sao_paulo');
 
 spl_autoload_register(function ($class) {

@@ -23,7 +23,7 @@ class connection {
 
             $this->connectDB = $connectDB;
         } catch (\Throwable $th) {
-            die('Error');
+            die("Error: Could not connect to the database");
         }
     }
 

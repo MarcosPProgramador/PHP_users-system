@@ -1,7 +1,7 @@
 <?php
 class controller {
     public function __construct() {
-        include './views/public/template.php';
+        include 'views/public/template.php';
     }
 
     public function getConfig($datas) {
@@ -26,7 +26,7 @@ class controller {
                 $arr = [];
 
                 foreach ($style as $value) {
-                    $filePath = "./views/public/assets/styles/$value";
+                    $filePath = "views/public/assets/styles/$value";
 
                     if (file_exists($filePath)) {
                         array_push($arr, $filePath);
@@ -49,7 +49,7 @@ class controller {
                 $arr = [];
 
                 foreach ($script as $value) {
-                    $filePath = "./views/public/assets/js/$value";
+                    $filePath = "views/public/assets/js/$value";
 
                     if (file_exists($filePath)) {
                         array_push($arr, $filePath);
@@ -67,9 +67,9 @@ class controller {
             }
 
         case 'icon':
-            return "./views/public/assets/icon/$icon";
+            return "views/public/assets/icon/$icon";
         case 'header':
-            $templateHeaderPath = "./views/public/templates/$header";
+            $templateHeaderPath = "views/public/templates/$header";
 
             if (file_exists($templateHeaderPath)) {
                 include $templateHeaderPath;
@@ -77,7 +77,7 @@ class controller {
 
             break;
         case 'section':
-            $layoutPath = "./views/public/layouts/$layout";
+            $layoutPath = "views/public/layouts/$layout";
 
             if (file_exists($layoutPath)) {
                 include $layoutPath;
@@ -85,7 +85,7 @@ class controller {
 
             break;
         case 'footer':
-            $templateFooterPath = "./views/public/templates/$footer";
+            $templateFooterPath = "views/public/templates/$footer";
 
             if (file_exists($templateFooterPath)) {
                 include $templateFooterPath;
@@ -104,7 +104,7 @@ class controller {
         switch ($endpoint) {
         case '/home':
 
-            if (isset($_COOKIE['logged'])) {
+            if (!isset($_COOKIE['logged'])) {
 
                 $config = [
                     'layout' => 'home.php',
@@ -125,6 +125,7 @@ class controller {
 
             header('Location: logIn');
             exit();
+            break;
 
         case '/login':
             $config = [

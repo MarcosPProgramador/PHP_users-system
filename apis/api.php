@@ -16,14 +16,16 @@ class api {
 
         if ($resource === self::$endpoint) {
             $controller = explode('@', $method)[0];
+
             $method = explode('@', $method)[1];
 
             $controller = tasks::Class($controller);
 
             $datas = call_user_func([$controller, $method]);
-            http_response_code($datas['code']);
 
+            http_response_code($datas['code']);
             exit(json_encode($datas['datas'], JSON_UNESCAPED_UNICODE));
+
         }
 
     }
@@ -31,9 +33,11 @@ class api {
     public static function get(string $resource, string $method) {
 
         if (self::$request === 'GET') {
+
             self::base($resource, $method);
 
         };
+
     }
 
     public static function post(string $resource, string $method) {

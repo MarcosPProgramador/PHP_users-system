@@ -13,9 +13,19 @@ class tasks {
 
     public static function Endpoint() {
 
-        $endpoint = $_GET['url'] ?? 'home';
+        $endpoint = $_SERVER['REQUEST_URI'];
         $endpoint = strtolower($endpoint);
-        return "/$endpoint";
+
+        switch ($endpoint) {
+        case '/':
+            return "/home";
+            break;
+
+        default:
+            return "$endpoint";
+            break;
+        }
+
     }
 
 }
