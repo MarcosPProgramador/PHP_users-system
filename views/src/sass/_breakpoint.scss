@@ -1,7 +1,0 @@
-@mixin breakpoints($point) {
-  @if $point == phones {
-    @media (max-width: 768px) {
-      @content;
-    }
-  }
-}
