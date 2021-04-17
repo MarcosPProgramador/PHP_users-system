@@ -1,29 +1,50 @@
-# Project create by Marcos Proença
+<hr />
+<img width=20 height=20 src="https://raw.githubusercontent.com/aemmadi/aemmadi/master/wave.gif" alt="master-wave-gif"> <span>Hello!</span>
 
-## Before you start, download the dependencies | **yarn**
+#
 
-### Preview
+## **💻 if you are going to start the project, do the following:**
 
--   desktop
+-  **cd** web
+    -  **install the project dependencies:**
+        -  **_yarn_**
+    -  **start the server:**
+        -  **_yarn_** start
+-  **cd** ../server
 
-    ![desktop](./.github/layout-desktop.png)
+    -  **install the project dependencies:**
+        -  **_yarn_**
+    -  **run all migrations:**
+        -  **_yarn_** typeorm migration:**run**
+    -  **start the server:**
+        -  **_yarn_** dev
+            -  access **http://localhost:3333/**
 
--   mobile
+### **🌌 tests**
+   -  **_yarn_** test
 
-    ![mobile](./.github/layout-mobile.png)
+### **🌌 preview**
 
-### **technologies used**
+-  **(1920 x 1348)**
+   ![Onussy](./.github/Onussy.png)
 
--   HTML
--   CSS
--   Sass
--   MVC
--   PHP
--   mysql
--   JavaScript
--   TypeScript
--   git
--   Gulp
--   yarn
+### **🔧 technologies used**
+-  NodeJS
+-  ReactJS
+-  React Native
+-  Expo
+-  TypeORM
+-  api rest
+-  axios
+-  cors
+-  jwt
+-  styled-components
+-  mysql
+-  typescript
+-  eslint
+-  prettier
+-  git
+-  yarn
 
-## **Front-end** && **Back-end**
+## **front-end** && **back-end**
+<hr />
